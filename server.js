@@ -1,8 +1,8 @@
-var express = require("express");
-var app = express();
-var mongojs = require("mongojs");
-var db = mongojs("mongodb://rac:qwaszx88!@ds147995.mlab.com:47995/contactlist", ["contactlist"]);
-var bodyParser = require("body-parser");
+var express = require("express"),
+	app = express(),
+	mongojs = require("mongojs"),
+	db = mongojs("mongodb://rac:qwaszx88!@ds147995.mlab.com:47995/contactlist", ["contactlist"]),
+	bodyParser = require("body-parser");
 
 
 // "/"= indexsidan. Detta är en test för att se att det funkar
