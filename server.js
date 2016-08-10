@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
 var mongojs = require("mongojs");
-var db = mongojs("contactlist", ["contactlist"]);
+var db = mongojs("mongodb://rac:qwaszx88!@ds147995.mlab.com:47995/contactlist", ["contactlist"]);
 var bodyParser = require("body-parser");
 
 
@@ -56,5 +56,5 @@ app.delete("/contactlist/:id", function(req, res){
 	
 });
 
-app.listen(3000, "0.0.0.0");
+app.listen(47995, "");
 console.log("Server running on port 3000.");
