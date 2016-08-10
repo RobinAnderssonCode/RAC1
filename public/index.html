@@ -27,7 +27,7 @@
                 <td><input class="form-control" ng-model=contact.name></td>
                 <td><input class="form-control" ng-model=contact.email></td>
                 <td><input class="form-control" ng-model=contact.number></td>
-                <td class="text-center"><button class="btn btn-primary" ng-click="addContact()">Add contact</button></td>
+                <td class="text-center"><button id="add" class="btn btn-primary" ng-click="addContact()">Add contact</button></td>
             </tr>
         	<!--for every contact(can be named whatever) in $scope.contactlist in Controller -->
         		<tr ng-repeat="contact in contactlist">
