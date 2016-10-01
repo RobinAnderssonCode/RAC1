@@ -1,39 +1,50 @@
-// Pekar till ng-app="myApp" i index.html.
-var myApp = angular.module("myApp", []);
+var app = angular.module("RESTfulApp", []);
 
-//Pekar till ng-controller="AppCtrl" i index.html. $scope är bron 
-//mellan View och Controller
-myApp.controller("AppCtrl", function($scope, $http){
-	
-	// /contact list är routen där vi hämtar data från
-	// servern (senare mongodb) under function säger vi
-	//vad den ska göra när den fått datan (GET)
-	function getData() {
-	$http.get("/contactlist").success(function(response) {
-		//console.log("Controller: Imported db.");
-		$scope.contactlist = response;
-		$scope.contact = "";
-	});
-}
-	getData();
+app.controller("AppCtrl", function($scope, $http) {
+    function getData() {
+        $http.get("/contactlist").success(function(response) {
+            $scope.contactlist = response;
+            $scope.contact = "";
+        });
+    }
+    getData();
 
-	// Skickar det som är i $scope.contact tillbaka till db.
-	// Bundet till knappen. .success(function(response) får tillbaka svaret
-	// från model (server.js)
-	$scope.addContact = function() {
-		console.log($scope.contact);
-		$http.post("/contactlist", $scope.contact).success(function(response){
-			//console.log(response);
-			getData();
-		});
-	};
+    $scope.addContact = function() {
+        $http.post("/contactlist", $scope.contact).success(function(response) {
+            getData();
+        });
+    };
 
-	// Raderar en +kontakt via namn.
-	$scope.delContact = function(id) {
-		$http.delete("/contactlist/" + id).success(function(response){
-			getData();
+    $scope.editContact = function(id) {
+        console.log(id);
+        $http.get("/contactlist/" + id).success(function(response) {
+            $scope.contact = response;
+            $('#add').hide();
+            $('#clear').show();
+            $('#update').show();
+        });
+    };
 
-		});
-	};
-	
+    $scope.update = function() {
+        $http.put("/contactlist/" + $scope.contact._id, $scope.contact).success(function(response) {
+            $('#add').show();
+            $('#clear').hide();
+            $('#update').hide();
+            getData();
+        });
+    };
+
+    $scope.clear = function() {
+        $scope.contact = "";
+        $('#add').show();
+        $('#clear').hide();
+        $('#update').hide();
+    };
+
+    $scope.delContact = function(id) {
+        $http.delete("/contactlist/" + id).success(function(response) {
+            getData();
+        });
+    };
+
 });
